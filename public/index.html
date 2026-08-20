@@ -139,7 +139,6 @@
         <div id="reportContainer" class="hidden mt-10">
             <div id="pdfContent" class="bg-white p-6 md:p-10 rounded-3xl border-2 border-amber-300 shadow-2xl relative">
                 
-                <!-- Free Summary Section -->
                 <div class="text-center border-b border-amber-100 pb-6 mb-6">
                     <div class="flex items-center justify-center gap-2 mb-1">
                         <span class="text-xl">🪐</span>
@@ -351,7 +350,7 @@
         © 2026 හඳහන.info AI Astrology Platform. All Rights Reserved.
     </footer>
 
-    <!-- Built-in Sri Lankan Astrological Calculation Engine (Zero API Failures) -->
+    <!-- Offline Vedic Astrology Engine -->
     <script>
         const form = document.getElementById('horoscopeForm');
         const loader = document.getElementById('loader');
@@ -399,14 +398,13 @@
                 const birthDate = new Date(dob);
                 const [hours, minutes] = time.split(':').map(Number);
                 
-                // Algorithmic Lagna & Nakatha Mapping
                 const dayOfYear = Math.floor((birthDate - new Date(birthDate.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-                const lagnaIndex = Math.floor(((hours * 60 + minutes + dayOfYear * 4) / 120) % 12);
-                const nakathaIndex = (birthDate.getDate() * 2 + birthDate.getMonth() + hours) % 27;
+                const lagnaIndex = Math.abs(Math.floor(((hours * 60 + minutes + dayOfYear * 4) / 120) % 12));
+                const nakathaIndex = Math.abs((birthDate.getDate() * 2 + birthDate.getMonth() + hours) % 27);
 
-                const lagna = RASHIS[lagnaIndex];
-                const nekatha = NAKATHAS[nakathaIndex];
-                const lucky = LUCKY_DATA[lagna];
+                const lagna = RASHIS[lagnaIndex] || "මේෂ";
+                const nekatha = NAKATHAS[nakathaIndex] || "අස්විද";
+                const lucky = LUCKY_DATA[lagna] || LUCKY_DATA["මේෂ"];
 
                 document.getElementById('resName').innerText = name;
                 document.getElementById('resDetails').innerText = `උපන් දිනය: ${dob} | වේලාව: ${time} | ස්ථානය: ${district}, ${country} (${gender})`;
@@ -419,7 +417,6 @@
 
                 document.getElementById('resAffirmation').innerText = `"ඔබ උපතින්ම හිමිකරගත් සහජ බුද්ධිය සහ ආත්ම විශ්වාසය තුළින් ඕනෑම බාධකයක් ජය ගැනීමේ හැකියාව ඔබට ඇත."`;
 
-                // Life Reports
                 document.getElementById('resDashaDetails').innerText = `ඔබ ${nekatha} නැකතින් උපත ලබා ඇති අතර, උපතේදී ආරම්භ වූ මහ දශාව නිමවා දැනට ඉතා වැදගත් වූ ග්‍රහ මාරු කාලසීමාවක් ගත කරමින් සිටී. වර්තමාන දශාව ඔබේ ජීවිතයේ නව පරිවර්තනයක් සනිටුහන් කරයි.`;
                 document.getElementById('resDashaImpact').innerText = `දැනට ගතවන කාලය ආයෝජන, ව්‍යාපාර හා නව සැලසුම් ක්‍රියාත්මක කිරීමට යහපත් වේ. බුද්ධිමත්ව තීරණ ගැනීමෙන් උපරිම ඵල නෙලාගත හැක.`;
                 
@@ -428,7 +425,6 @@
                 document.getElementById('resFuture').innerText = `ඉදිරි වසර 1-3 තුළ දිගුකාලීනව බලාපොරොත්තු වූ ඉඩකඩම්, දේපළ හෝ නව වෘත්තීය අවස්ථාවන් උදාවීමේ ප්‍රබල ප්‍රවණතාවක් පවතී. පවුලේ සමගිය සහ සතුට වර්ධනය වේ.`;
                 document.getElementById('resGuidance').innerText = `1. උදෑසන කාලයේ වැදගත් වැඩකටයුතු ආරම්භ කරන්න.\n2. සුබ දිනය වන ${lucky.day} දිනයේ නව ගිවිසුම් හෝ කාර්යයන් අරඹන්න.\n3. සිත එකඟ කරගෙන දෛනිකව ධනාත්මක සිතුවිලි පුරුදු කරන්න.`;
 
-                // Planet Placements in Houses
                 const planetMap = {
                     "1": ["ලග්නාධිපති"], "4": ["චන්ද්‍ර"], "5": ["බුධ", "ශුක්‍ර"], 
                     "7": ["ගුරු"], "9": ["රවි"], "10": ["කුජ"], "11": ["ශනි", "රාහු"]
@@ -445,10 +441,9 @@
                 reportContainer.classList.remove('hidden');
                 reportContainer.scrollIntoView({ behavior: 'smooth' });
 
-            }, 600);
+            }, 500);
         });
 
-        // Verification of Unlock Code
         verifyCodeBtn.addEventListener('click', () => {
             const enteredCode = unlockCodeInput.value.trim().toUpperCase();
             if (VALID_CODES.includes(enteredCode)) {
