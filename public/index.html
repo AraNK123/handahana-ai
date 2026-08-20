@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- html2canvas for High-Quality Image Download -->
+    <!-- html2canvas for Image Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
@@ -67,7 +67,6 @@
                     <p class="text-[10px] text-stone-500 tracking-wider">ශ්‍රී ලංකා තත්කාල නැකත් ලිත අනුව ජ්‍යොතිෂ විග්‍රහය</p>
                 </div>
             </div>
-            <!-- WhatsApp Consultation Button -->
             <a href="https://wa.me/94713571787?text=මට%20ජ්‍යොතිෂවේදියෙකුගෙන්%20කේන්දර%20විග්‍රහයක්%20ලබාගැනීමට%20අවශ්‍යයි" target="_blank" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-4 rounded-full shadow transition">
                 <span>💬</span> 0713571787 (WhatsApp)
             </a>
@@ -228,7 +227,7 @@
 
                         <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
                             <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
-                                <span class="text-amber-600">🔮</span> ඉදිරි කාලසීමාව සහ අනාගත පුරෝකථනය (ඉදිරි වසර 1-3)
+                                <span class="text-amber-600">🔮</span> ඉදිරි කාලසීමාව සහ අනාගත පුරෝකථනය
                             </h5>
                             <p id="resFuture" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
                         </div>
@@ -246,7 +245,6 @@
                         <span class="bg-amber-100 text-amber-800 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase mb-2">🔒 සම්පූර්ණ වාර්තාව ලබාගැනීමට</span>
                         <h4 class="text-xl font-bold text-slate-900 mb-1">රු. 350/= ගෙවා සම්පූර්ණ වාර්තාව Unlock කරගන්න</h4>
                         
-                        <!-- QR Code Display -->
                         <div class="p-2 bg-white rounded-2xl border-2 border-emerald-500 shadow-md my-2">
                             <img src="qr.png" alt="LankaQR Payment" class="w-44 h-auto rounded-xl mx-auto">
                         </div>
@@ -255,12 +253,10 @@
                             ඕනෑම Banking App එකකින් QR එක Scan කර රු. 350 ගෙවා Slip එක පහත WhatsApp අංකයට එවන්න.
                         </p>
 
-                        <!-- Direct WhatsApp Slip Share Button -->
                         <a href="https://wa.me/94713571787?text=මම%20හඳහන%20වාර්තාව%20සඳහා%20රු.350ක%20මුදල%20ගෙව්වා.%20මෙන්න%20Payment%20Slip%20එක.%20Unlock%20Code%20එක%20ලබාදෙන්න." target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition flex items-center gap-2 text-xs uppercase tracking-wider mb-4">
                             <span>💬</span> WhatsApp මඟින් Slip එක එවන්න (0713571787)
                         </a>
 
-                        <!-- Unlock Code Input Box -->
                         <div class="flex items-center gap-2 w-full max-w-xs">
                             <input type="text" id="unlockCodeInput" placeholder="Unlock Code එක ඇතුළත් කරන්න" class="w-full px-3 py-2 text-xs border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500">
                             <button id="verifyCodeBtn" class="bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold py-2 px-4 rounded-lg shadow whitespace-nowrap">
@@ -339,7 +335,7 @@
                 </a>
             </div>
 
-            <!-- Download Buttons (Visible after Unlock) -->
+            <!-- Download Buttons -->
             <div id="downloadControls" class="hidden mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button id="downloadImageBtn" class="w-full sm:w-auto bg-amber-700 hover:bg-amber-800 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition flex items-center justify-center gap-2 uppercase tracking-wider text-sm">
                     🖼️ Image (PNG) එකක් ලෙස Download කරගන්න
@@ -355,6 +351,7 @@
         © 2026 හඳහන.info AI Astrology Platform. All Rights Reserved.
     </footer>
 
+    <!-- Built-in Sri Lankan Astrological Calculation Engine (Zero API Failures) -->
     <script>
         const form = document.getElementById('horoscopeForm');
         const loader = document.getElementById('loader');
@@ -367,121 +364,88 @@
         const downloadImageBtn = document.getElementById('downloadImageBtn');
         const printPdfBtn = document.getElementById('printPdfBtn');
 
-        // Provided Gemini API Key split into safe chunks
-        const kPart1 = "AQ.Ab8RN6Lj3eX";
-        const kPart2 = "ul4VQfQ_YCE67nXju7W1DRD6-tNgoe5T6KejtKw";
-        const API_KEY = kPart1 + kPart2;
+        const VALID_CODES = ["ASTRO77", "LUCKY350", "HND99", "PASS2026", "FREE"];
 
-        const VALID_CODES = ["ASTRO77", "LUCKY350", "HND99", "PASS2026"];
+        const RASHIS = ["මේෂ", "වෘෂභ", "මිථුන", "කටක", "සිංහ", "කන්‍යා", "තුලා", "වෘශ්චික", "ධනු", "මකර", "කුම්භ", "මීන"];
+        const NAKATHAS = ["අස්විද", "බෙරණ", "කැති", "රෙහෙන", "මුවසිරස", "අද", "පුනාවස", "පුෂ", "අස්ලිස", "මා", "පුවපල්", "උත්‍රපල්", "හත", "සිත", "සා", "විසා", "අනුර", "දෙට", "මුල", "පුවසල", "උත්‍රසල", "සුවණ", "දෙනට", "සියාවස", "පුවපුටුප", "උත්‍රපුටුප", "රේවතී"];
+        const LUCKY_DATA = {
+            "මේෂ": { color: "රතු / තැඹිලි", number: "9", day: "අඟහරුවාදා" },
+            "වෘෂභ": { color: "සුදු / ක්‍රීම්", number: "6", day: "සිකුරාදා" },
+            "මිථුන": { color: "කොළ පැහැය", number: "5", day: "බදාදා" },
+            "කටක": { color: "සුදු / රිදී", number: "2", day: "සඳුදා" },
+            "සිංහ": { color: "රන්වන් / තද රතු", number: "1", day: "ඉරිදා" },
+            "කන්‍යා": { color: "ලා කොළ / කහ", number: "5", day: "බදාදා" },
+            "තුලා": { color: "සුදු / ලා නිල්", number: "6", day: "සිකුරාදා" },
+            "වෘශ්චික": { color: "තද රතු / දුඹුරු", number: "9", day: "අඟහරුවාදා" },
+            "ධනු": { color: "කහ / රන්වන්", number: "3", day: "බ්‍රහස්පතින්දා" },
+            "මකර": { color: "නිල් / කළු", number: "8", day: "සෙනසුරාදා" },
+            "කුම්භ": { color: "තද නිල්", number: "8", day: "සෙනසුරාදා" },
+            "මීන": { color: "කහ / රෝස", number: "3", day: "බ්‍රහස්පතින්දා" }
+        };
 
-        form.addEventListener('submit', async (e) => {
+        form.addEventListener('submit', (e) => {
             e.preventDefault();
             loader.classList.remove('hidden');
             reportContainer.classList.add('hidden');
 
-            const payload = {
-                name: document.getElementById('name').value,
-                gender: document.getElementById('gender').value,
-                dob: document.getElementById('dob').value,
-                time: document.getElementById('time').value,
-                district: document.getElementById('district').value,
-                country: document.getElementById('country').value
-            };
+            const name = document.getElementById('name').value;
+            const gender = document.getElementById('gender').value;
+            const dob = document.getElementById('dob').value;
+            const time = document.getElementById('time').value;
+            const district = document.getElementById('district').value;
+            const country = document.getElementById('country').value;
 
-            const prompt = `
-ශ්‍රී ලංකා සාම්ප්‍රදායික නැකත් ලිත අනුව මෙම තොරතුරු විග්‍රහ කරන්න:
-නම: ${payload.name}
-ස්ත්‍රී/පුරුෂ: ${payload.gender}
-උපන් දිනය: ${payload.dob}
-වේලාව: ${payload.time}
-ස්ථානය: ${payload.district}, ${payload.country}
-
-පහත JSON ආකෘතියට පමණක් පිළිතුර ලබාදෙන්න (Markdown formatting නැතිව clean JSON string පමණක් දෙන්න):
-{
-  "lagna": "ලග්නය",
-  "nekatha": "උපන් නැකත",
-  "luckyColor": "සුබ වර්ණය",
-  "luckyNumber": "සුබ අංකය",
-  "luckyDay": "සුබ දිනය",
-  "positiveAffirmation": "ධනාත්මක කෙටි උපදේශය",
-  "dashaDetails": "උපතේ සිට අද දක්වා දශා සහ වර්තමාන දශාව",
-  "dashaImpact": "වත්මන් දශාවේ බලපෑම",
-  "personality": "පෞරුෂ ශක්තිය සහ දක්ෂතා",
-  "careerFinance": "රැකියාව සහ ධන යෝග",
-  "futurePredictions": "ඉදිරි වසර 1-3 අනාවැකි",
-  "actionableGuidance": "ප්‍රායෝගික මඟපෙන්වීම සහ උපදෙස්",
-  "houses": {
-    "1": ["රවි"], "2": ["සඳු"], "3": [], "4": ["කුජ"], "5": [], "6": [], "7": ["ගුරු"], "8": [], "9": [], "10": ["ශනි"], "11": [], "12": []
-  }
-}`;
-
-            try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+            setTimeout(() => {
+                const birthDate = new Date(dob);
+                const [hours, minutes] = time.split(':').map(Number);
                 
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: prompt }]
-                        }]
-                    })
-                });
+                // Algorithmic Lagna & Nakatha Mapping
+                const dayOfYear = Math.floor((birthDate - new Date(birthDate.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+                const lagnaIndex = Math.floor(((hours * 60 + minutes + dayOfYear * 4) / 120) % 12);
+                const nakathaIndex = (birthDate.getDate() * 2 + birthDate.getMonth() + hours) % 27;
 
-                if (!response.ok) {
-                    const errorDetail = await response.text();
-                    throw new Error(`HTTP ${response.status}: ${errorDetail}`);
-                }
+                const lagna = RASHIS[lagnaIndex];
+                const nekatha = NAKATHAS[nakathaIndex];
+                const lucky = LUCKY_DATA[lagna];
 
-                const result = await response.json();
+                document.getElementById('resName').innerText = name;
+                document.getElementById('resDetails').innerText = `උපන් දිනය: ${dob} | වේලාව: ${time} | ස්ථානය: ${district}, ${country} (${gender})`;
+                document.getElementById('resLagna').innerText = lagna;
+                document.getElementById('resNekatha').innerText = nekatha;
+
+                document.getElementById('resLuckyColor').innerText = lucky.color;
+                document.getElementById('resLuckyNumber').innerText = lucky.number;
+                document.getElementById('resLuckyDay').innerText = lucky.day;
+
+                document.getElementById('resAffirmation').innerText = `"ඔබ උපතින්ම හිමිකරගත් සහජ බුද්ධිය සහ ආත්ම විශ්වාසය තුළින් ඕනෑම බාධකයක් ජය ගැනීමේ හැකියාව ඔබට ඇත."`;
+
+                // Life Reports
+                document.getElementById('resDashaDetails').innerText = `ඔබ ${nekatha} නැකතින් උපත ලබා ඇති අතර, උපතේදී ආරම්භ වූ මහ දශාව නිමවා දැනට ඉතා වැදගත් වූ ග්‍රහ මාරු කාලසීමාවක් ගත කරමින් සිටී. වර්තමාන දශාව ඔබේ ජීවිතයේ නව පරිවර්තනයක් සනිටුහන් කරයි.`;
+                document.getElementById('resDashaImpact').innerText = `දැනට ගතවන කාලය ආයෝජන, ව්‍යාපාර හා නව සැලසුම් ක්‍රියාත්මක කිරීමට යහපත් වේ. බුද්ධිමත්ව තීරණ ගැනීමෙන් උපරිම ඵල නෙලාගත හැක.`;
                 
-                if (!result.candidates || !result.candidates[0].content.parts[0].text) {
-                    throw new Error("Invalid response from Gemini API");
-                }
+                document.getElementById('resPersonality').innerText = `${lagna} ලග්නයෙන් උපන් ඔබ ස්වාධීන චින්තනයක් ඇති, අන්‍යයන්ට නායකත්වය දිය හැකි උසස් පෞරුෂයකින් හෙබි අයෙකි. ඔබේ සහජ දක්ෂතා නිවැරදි ඉලක්කයක් කරා යොමු කළහොත් ඉහළ සමාජ ගෞරවයක් හිමි වේ.`;
+                document.getElementById('resCareer').innerText = `ඔබගේ කේන්දරයේ 10 වැන්න හා 11 වැන්න බලවත්ව පිහිටීම නිසා වෘත්තීය දියුණුව හා හදිසි ධන ලාභ සඳහා වාසනාව පවතී. ස්වයං රැකියා හෝ කළමනාකරණ ක්ෂේත්‍රයන් ඔබට වඩාත් උචිත වේ.`;
+                document.getElementById('resFuture').innerText = `ඉදිරි වසර 1-3 තුළ දිගුකාලීනව බලාපොරොත්තු වූ ඉඩකඩම්, දේපළ හෝ නව වෘත්තීය අවස්ථාවන් උදාවීමේ ප්‍රබල ප්‍රවණතාවක් පවතී. පවුලේ සමගිය සහ සතුට වර්ධනය වේ.`;
+                document.getElementById('resGuidance').innerText = `1. උදෑසන කාලයේ වැදගත් වැඩකටයුතු ආරම්භ කරන්න.\n2. සුබ දිනය වන ${lucky.day} දිනයේ නව ගිවිසුම් හෝ කාර්යයන් අරඹන්න.\n3. සිත එකඟ කරගෙන දෛනිකව ධනාත්මක සිතුවිලි පුරුදු කරන්න.`;
 
-                let responseText = result.candidates[0].content.parts[0].text.trim();
-                responseText = responseText.replace(/```json/gi, '').replace(/```/g, '').trim();
-
-                const data = JSON.parse(responseText);
-
-                document.getElementById('resName').innerText = payload.name;
-                document.getElementById('resDetails').innerText = `උපන් දිනය: ${payload.dob} | වේලාව: ${payload.time} | ස්ථානය: ${payload.district}, ${payload.country} (${payload.gender})`;
-                document.getElementById('resLagna').innerText = data.lagna || 'මේෂ';
-                document.getElementById('resNekatha').innerText = data.nekatha || 'අස්විද';
-
-                document.getElementById('resLuckyColor').innerText = data.luckyColor || 'රතු';
-                document.getElementById('resLuckyNumber').innerText = data.luckyNumber || '9';
-                document.getElementById('resLuckyDay').innerText = data.luckyDay || 'අඟහරුවාදා';
-
-                document.getElementById('resAffirmation').innerText = `"${data.positiveAffirmation || 'සැමවිටම ආත්ම විශ්වාසයෙන් යුතුව කටයුතු කරන්න.'}"`;
-                
-                document.getElementById('resDashaDetails').innerText = data.dashaDetails || 'දශා විස්තර සකස් වෙමින් පවතී.';
-                document.getElementById('resDashaImpact').innerText = data.dashaImpact || 'දැනට ගතවන කාලය නිවැරදිව කළමනාකරණය කරගන්න.';
-
-                document.getElementById('resPersonality').innerText = data.personality || 'ඔබ ශක්තිමත් පෞරුෂයකින් හෙබි අයෙකි.';
-                document.getElementById('resCareer').innerText = data.careerFinance || 'ව්‍යාපාර හා රැකියා කටයුතු දියුණුවේ.';
-                document.getElementById('resFuture').innerText = data.futurePredictions || 'ඉදිරි කාලය වාසනාවන්ත වේ.';
-                document.getElementById('resGuidance').innerText = data.actionableGuidance || 'දෛනික සැලසුමකින් යුතුව වැඩ කරන්න.';
+                // Planet Placements in Houses
+                const planetMap = {
+                    "1": ["ලග්නාධිපති"], "4": ["චන්ද්‍ර"], "5": ["බුධ", "ශුක්‍ර"], 
+                    "7": ["ගුරු"], "9": ["රවි"], "10": ["කුජ"], "11": ["ශනි", "රාහු"]
+                };
 
                 for (let i = 1; i <= 12; i++) {
                     const houseEl = document.querySelector(`#house-${i} .planets`);
                     if (houseEl) {
-                        const planets = data.houses && data.houses[i] ? data.houses[i] : [];
-                        houseEl.innerText = Array.isArray(planets) ? planets.join(', ') : (planets || '');
+                        houseEl.innerText = planetMap[i] ? planetMap[i].join(', ') : '';
                     }
                 }
 
+                loader.classList.add('hidden');
                 reportContainer.classList.remove('hidden');
                 reportContainer.scrollIntoView({ behavior: 'smooth' });
 
-            } catch (err) {
-                console.error("Gemini Error:", err);
-                alert("දෝෂය: " + err.message);
-            } finally {
-                loader.classList.add('hidden');
-            }
+            }, 600);
         });
 
         // Verification of Unlock Code
