@@ -39,27 +39,21 @@
             background-color: #fffdfa;
             text-align: center;
         }
+        .blur-content {
+            filter: blur(6px);
+            user-select: none;
+            pointer-events: none;
+        }
         @media print {
-            body * {
-                visibility: hidden;
-            }
-            #pdfContent, #pdfContent * {
-                visibility: visible;
-            }
-            #pdfContent {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                border: none !important;
-                box-shadow: none !important;
-            }
+            body * { visibility: hidden; }
+            #pdfContent, #pdfContent * { visibility: visible; }
+            #pdfContent { position: absolute; left: 0; top: 0; width: 100%; border: none !important; box-shadow: none !important; }
         }
     </style>
 </head>
 <body class="text-stone-800 min-h-screen flex flex-col justify-between">
 
-    <!-- Header Navigation -->
+    <!-- Header -->
     <header class="bg-white/90 backdrop-blur-md border-b border-amber-200 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -73,20 +67,14 @@
                     <p class="text-[10px] text-stone-500 tracking-wider">ශ්‍රී ලංකා තත්කාල නැකත් ලිත අනුව ජ්‍යොතිෂ විග්‍රහය</p>
                 </div>
             </div>
-
-            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
-                <a href="#" class="text-amber-700 font-bold hover:text-amber-800">මුල් පිටුව</a>
-                <a href="#" class="hover:text-amber-700 transition">දවසේ පලාපල</a>
-                <a href="#" class="hover:text-amber-700 transition">පොරොන්දම්</a>
-                <a href="#" class="hover:text-amber-700 transition">ජ්‍යොතිෂ සේවා</a>
-                <a href="#" class="hover:text-amber-700 transition">අප අමතන්න</a>
-            </nav>
+            <!-- WhatsApp Contact Button -->
+            <a href="https://wa.me/94713571787?text=මට%20ජ්‍යොතිෂවේදියෙකුගෙන්%20කේන්දර%20විග්‍රහයක්%20ලබාගැනීමට%20අවශ්‍යයි" target="_blank" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-4 rounded-full shadow transition">
+                <span>💬</span> 0713571787 (WhatsApp)
+            </a>
         </div>
     </header>
 
-    <!-- Main Section -->
-    <main class="max-w-4xl mx-auto px-4 py-10 w-full">
-        
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full">
         <div class="text-center mb-8">
             <div class="inline-block p-2 rounded-full bg-amber-100/80 border border-amber-300 mb-3 shadow-inner">
                 <div class="w-16 h-16 rounded-full bg-slate-900 flex items-center justify-center border border-amber-400 shadow">
@@ -94,13 +82,11 @@
                 </div>
             </div>
             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 heading-font mb-2">ඔබේ මුළු ජීවිතයම එකම වාර්තාවකින්!</h2>
-            <p class="text-stone-600 text-sm md:text-base max-w-lg mx-auto">ශ්‍රී ලංකා සම්ප්‍රදායික නැකත් ලිත සහ AI තාක්ෂණයෙන් සැකසූ සම්පූර්ණ ග්‍රහ චක්‍ර විග්‍රහය.</p>
+            <p class="text-stone-600 text-sm md:text-base max-w-xl mx-auto">ශ්‍රී ලංකා සම්ප්‍රදායික නැකත් ලිත, උපතේ සිට අද දක්වා දශා/අතුරු දශා සහ සුබ සංකේත සහිත සම්පූර්ණ විග්‍රහය.</p>
         </div>
 
         <!-- Form Card -->
         <div class="bg-white rounded-3xl p-6 md:p-10 shadow-2xl border border-amber-100 relative overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-100 rounded-full blur-2xl opacity-60"></div>
-            
             <h3 class="text-center text-xs font-bold tracking-widest text-amber-700 uppercase mb-6">හඳහන.INFO - කේන්දර විස්තරය ලබාගන්න</h3>
 
             <form id="horoscopeForm" class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -139,7 +125,7 @@
 
                 <div class="md:col-span-2 mt-2">
                     <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold py-4 rounded-xl shadow-lg transition duration-200 uppercase tracking-wider text-sm">
-                        සම්පූර්ණ කේන්දර වාර්තාව ලබාගන්න (Instant Analysis)
+                        නොමිලේ මූලික කේන්දර වාර්තාව ලබාගන්න
                     </button>
                 </div>
             </form>
@@ -152,11 +138,9 @@
 
         <!-- Result Container -->
         <div id="reportContainer" class="hidden mt-10">
-            
-            <!-- Result Box (Will be saved as Image/Print PDF) -->
-            <div id="pdfContent" class="bg-white p-6 md:p-10 rounded-3xl border-2 border-amber-300 shadow-2xl">
+            <div id="pdfContent" class="bg-white p-6 md:p-10 rounded-3xl border-2 border-amber-300 shadow-2xl relative">
                 
-                <!-- Report Header -->
+                <!-- Free Summary Section -->
                 <div class="text-center border-b border-amber-100 pb-6 mb-6">
                     <div class="flex items-center justify-center gap-2 mb-1">
                         <span class="text-xl">🪐</span>
@@ -175,7 +159,6 @@
                     </div>
                 </div>
 
-                <!-- Lucky Elements Quick Highlights Bar -->
                 <div class="grid grid-cols-3 gap-3 mb-6">
                     <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center">
                         <div class="text-stone-500 text-[11px] font-bold uppercase">🎨 සුබ වර්ණය</div>
@@ -191,13 +174,11 @@
                     </div>
                 </div>
 
-                <!-- Positive Affirmation -->
                 <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 p-4 rounded-r-xl mb-6 shadow-sm">
                     <p class="text-xs font-bold text-amber-800 uppercase tracking-wider">🌟 ඔබේ ජීවිතයේ ශක්ති ප්‍රකාශනය (Affirmation):</p>
                     <p id="resAffirmation" class="text-sm font-semibold text-slate-800 italic mt-1"></p>
                 </div>
 
-                <!-- Chart -->
                 <div class="mb-8">
                     <h4 class="text-center text-sm font-bold text-stone-700 uppercase tracking-wider mb-3">රාශි චක්‍ර සටහන</h4>
                     <div class="kundali-grid max-w-sm mx-auto shadow-sm">
@@ -217,58 +198,95 @@
                     </div>
                 </div>
 
-                <!-- Structured Readings -->
-                <div class="space-y-5 text-sm">
-                    
-                    <!-- Dasha System Breakdown -->
-                    <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-200">
-                        <h5 class="font-bold text-amber-950 flex items-center gap-2 mb-2 text-base">
-                            <span class="text-amber-700">⏳</span> උපතේ සිට අද දක්වා දශා සහ වර්තමාන මහ දශා / අතුරු දශා විග්‍රහය
-                        </h5>
-                        <p id="resDashaDetails" class="text-stone-700 leading-relaxed whitespace-pre-line mb-3"></p>
-                        <div class="bg-white p-3.5 rounded-xl border border-amber-100 text-stone-700">
-                            <span class="font-bold text-amber-900 text-xs uppercase block mb-1">⚡ දැනට ගතවන දශාවේ බලපෑම හා ප්‍රයෝජනය:</span>
-                            <p id="resDashaImpact" class="leading-relaxed whitespace-pre-line"></p>
+                <!-- Premium Locked Details Section -->
+                <div class="relative">
+                    <div id="premiumContent" class="space-y-5 text-sm blur-content transition-all duration-300">
+                        <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-200">
+                            <h5 class="font-bold text-amber-950 flex items-center gap-2 mb-2 text-base">
+                                <span class="text-amber-700">⏳</span> උපතේ සිට අද දක්වා දශා සහ වර්තමාන මහ දශා / අතුරු දශා විග්‍රහය
+                            </h5>
+                            <p id="resDashaDetails" class="text-stone-700 leading-relaxed whitespace-pre-line mb-3"></p>
+                            <div class="bg-white p-3.5 rounded-xl border border-amber-100 text-stone-700">
+                                <span class="font-bold text-amber-900 text-xs uppercase block mb-1">⚡ දැනට ගතවන දශාවේ බලපෑම හා ප්‍රයෝජනය:</span>
+                                <p id="resDashaImpact" class="leading-relaxed whitespace-pre-line"></p>
+                            </div>
+                        </div>
+
+                        <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
+                            <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
+                                <span class="text-amber-600">💎</span> ඔබේ පෞරුෂ ශක්තිය සහ සහජ දක්ෂතා
+                            </h5>
+                            <p id="resPersonality" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
+                        </div>
+
+                        <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
+                            <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
+                                <span class="text-amber-600">📈</span> ධන යෝග, රැකියාව සහ ව්‍යාපාරික ජයග්‍රහණ
+                            </h5>
+                            <p id="resCareer" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
+                        </div>
+
+                        <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
+                            <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
+                                <span class="text-amber-600">🔮</span> ඉදිරි කාලසීමාව සහ අනාගත පුරෝකථනය (ඉදිරි වසර 1-3)
+                            </h5>
+                            <p id="resFuture" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
+                        </div>
+
+                        <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
+                            <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
+                                <span class="text-amber-600">🎯</span> සාර්ථකත්වයට කළ යුතු දේවල් සහ ප්‍රායෝගික මඟපෙන්වීම
+                            </h5>
+                            <p id="resGuidance" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
                         </div>
                     </div>
 
-                    <!-- Personality & Strengths -->
-                    <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
-                        <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
-                            <span class="text-amber-600">💎</span> ඔබේ පෞරුෂ ශක්තිය සහ සහජ දක්ෂතා
-                        </h5>
-                        <p id="resPersonality" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
-                    </div>
+                    <!-- Direct QR Payment Paywall Overlay -->
+                    <div id="paywallOverlay" class="absolute inset-0 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center rounded-2xl border-2 border-amber-400 shadow-2xl">
+                        <span class="bg-amber-100 text-amber-800 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase mb-2">🔒 සම්පූර්ණ වාර්තාව ලබාගැනීමට</span>
+                        <h4 class="text-xl font-bold text-slate-900 mb-1">රු. 350/= ගෙවා සම්පූර්ණ වාර්තාව Unlock කරගන්න</h4>
+                        
+                        <!-- QR Code Display -->
+                        <div class="p-2 bg-white rounded-2xl border-2 border-emerald-500 shadow-md my-2">
+                            <img src="qr.png" alt="LankaQR Payment" class="w-44 h-auto rounded-xl mx-auto">
+                        </div>
 
-                    <!-- Career & Finance -->
-                    <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
-                        <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
-                            <span class="text-amber-600">📈</span> ධන යෝග, රැකියාව සහ ව්‍යාපාරික ජයග්‍රහණ
-                        </h5>
-                        <p id="resCareer" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
-                    </div>
+                        <p class="text-[11px] text-stone-600 font-semibold max-w-sm mb-3">
+                            ඕනෑම Banking App එකකින් QR එක Scan කර රු. 350 ගෙවා Slip එක පහත WhatsApp අංකයට එවන්න.
+                        </p>
 
-                    <!-- Future Predictions -->
-                    <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
-                        <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
-                            <span class="text-amber-600">🔮</span> ඉදිරි කාලසීමාව සහ අනාගත පුරෝකථනය (ඉදිරි වසර 1-3)
-                        </h5>
-                        <p id="resFuture" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
-                    </div>
+                        <!-- Direct WhatsApp Slip Share Button -->
+                        <a href="https://wa.me/94713571787?text=මම%20හඳහන%20වාර්තාව%20සඳහා%20රු.350ක%20මුදල%20ගෙව්වා.%20මෙන්න%20Payment%20Slip%20එක.%20Unlock%20Code%20එක%20ලබාදෙන්න." target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition flex items-center gap-2 text-xs uppercase tracking-wider mb-4">
+                            <span>💬</span> WhatsApp මඟින් Slip එක එවන්න (0713571787)
+                        </a>
 
-                    <!-- Actionable Guidance -->
-                    <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
-                        <h5 class="font-bold text-slate-900 flex items-center gap-2 mb-2 text-base">
-                            <span class="text-amber-600">🎯</span> සාර්ථකත්වයට කළ යුතු දේවල් සහ ප්‍රායෝගික මඟපෙන්වීම
-                        </h5>
-                        <p id="resGuidance" class="text-stone-700 leading-relaxed whitespace-pre-line"></p>
+                        <!-- Unlock Code Input Box -->
+                        <div class="flex items-center gap-2 w-full max-w-xs">
+                            <input type="text" id="unlockCodeInput" placeholder="Unlock Code එක ඇතුළත් කරන්න" class="w-full px-3 py-2 text-xs border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500">
+                            <button id="verifyCodeBtn" class="bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold py-2 px-4 rounded-lg shadow whitespace-nowrap">
+                                Unlock
+                            </button>
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Action Buttons: Image & Print PDF -->
-            <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <!-- WhatsApp Direct Consultation Banner -->
+            <div class="mt-8 bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-6 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-bold flex items-center gap-2">
+                        <span>🌟</span> ප්‍රවීණ ජ්‍යොතිෂවේදියෙකුගෙන් සෘජු උපදෙස් ලබාගන්න
+                    </h4>
+                    <p class="text-emerald-100 text-xs mt-1">විවාහ පොරොන්දම්, ග්‍රහ අපල ශාන්ති කර්ම සහ ගැටලු සඳහා WhatsApp හරහා අපගේ ප්‍රවීණ ජ්‍යොතිෂ මණ්ඩලය අමතන්න.</p>
+                </div>
+                <a href="https://wa.me/94713571787?text=මට%20ජ්‍යොතිෂවේදියෙකුගෙන්%20සෘජු%20උපදෙස්%20ලබාගැනීමට%20අවශ්‍යයි" target="_blank" class="whitespace-nowrap bg-white hover:bg-emerald-50 text-emerald-900 font-bold py-3 px-6 rounded-xl shadow transition text-xs uppercase tracking-wider">
+                    💬 WhatsApp: 0713571787
+                </a>
+            </div>
+
+            <!-- Download Buttons (Visible after Unlock) -->
+            <div id="downloadControls" class="hidden mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button id="downloadImageBtn" class="w-full sm:w-auto bg-amber-700 hover:bg-amber-800 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition flex items-center justify-center gap-2 uppercase tracking-wider text-sm">
                     🖼️ Image (PNG) එකක් ලෙස Download කරගන්න
                 </button>
@@ -277,7 +295,6 @@
                 </button>
             </div>
         </div>
-
     </main>
 
     <footer class="bg-white border-t border-amber-100 py-6 text-center text-xs text-stone-500 mt-12">
@@ -288,8 +305,18 @@
         const form = document.getElementById('horoscopeForm');
         const loader = document.getElementById('loader');
         const reportContainer = document.getElementById('reportContainer');
+        const premiumContent = document.getElementById('premiumContent');
+        const paywallOverlay = document.getElementById('paywallOverlay');
+        const unlockCodeInput = document.getElementById('unlockCodeInput');
+        const verifyCodeBtn = document.getElementById('verifyCodeBtn');
+        const downloadControls = document.getElementById('downloadControls');
         const downloadImageBtn = document.getElementById('downloadImageBtn');
         const printPdfBtn = document.getElementById('printPdfBtn');
+
+        const GEMINI_KEY = "AQ.Ab8RN6LJ_hZ8X9Jg4LHZhIIFpX3hVZc_nvRCZNgZZ4cyP-VlJQ";
+
+        // Secret Master Unlock Passwords (ඔබට කැමති Password එකක් පාරිභෝගිකයාට ලබා දිය හැක)
+        const VALID_CODES = ["ASTRO77", "LUCKY350", "HND99", "PASS2026"];
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -305,45 +332,76 @@
                 country: document.getElementById('country').value
             };
 
+            const currentDate = new Date().toISOString().split('T')[0];
+
+            const promptText = `
+ඔබ ශ්‍රී ලංකා සාම්ප්‍රදායික තත්කාල නැකත් ලිත සහ වෛදික ජ්‍යොතිෂය මනාව ප්‍රගුණ කළ ප්‍රවීණ ධනාත්මක ජ්‍යොතිෂ උපදේශකයෙකි.
+
+පහත උපන් තොරතුරු සහ වර්තමාන දිනය (${currentDate}) පදනම් කරගෙන ශ්‍රී ලංකා නැකත් ලිත අනුව විස්තරාත්මක ජ්‍යොතිෂ ගණනය කිරීමක් හා ධනාත්මක විග්‍රහයක් සිංහලෙන් සකසන්න:
+- නම: ${payload.name}
+- ස්ත්‍රී/පුරුෂභාවය: ${payload.gender}
+- උපන් දිනය: ${payload.dob}
+- උපන් වේලාව: ${payload.time}
+- ස්ථානය: ${payload.district}, ${payload.country}
+- කේන්දරය බලන අද දිනය: ${currentDate}
+
+කරුණාකර පහත JSON ආකෘතියට පමණක් පිළිතුර ලබාදෙන්න (Markdown formatting, \`\`\`json නොමැතිව direct clean JSON පමණි):
+{
+  "lagna": "ලග්නය",
+  "nekatha": "උපන් නැකත",
+  "luckyColor": "සුබ වර්ණය",
+  "luckyNumber": "සුබ අංකය",
+  "luckyDay": "සුබ දිනය",
+  "positiveAffirmation": "සිතට ශක්තිය දෙන කෙටි ධනාත්මක ආදර්ශ පාඨයක්",
+  "dashaDetails": "උපන් දිනයේ සිට අද දිනය දක්වා ගෙවුණු මහ දශා සහ දැනට ගතවන මහ දශාව සහ අතුරු දශාව පිළිබඳ කාලසීමා විග්‍රහය",
+  "dashaImpact": "දැනට ගතවන දශා සහ අතුරු දශාවේ බලපෑම හා ඉන් උපරිම ඵල ලබාගත හැකි ආකාරය පිළිබඳ ධනාත්මක පැහැදිලි කිරීම",
+  "personality": "පෞරුෂ ශක්තීන්, සහජ දක්ෂතා සහ ගතිගුණ පිළිබඳ ධනාත්මක විග්‍රහය",
+  "careerFinance": "රැකියාව, ව්‍යාපාර සහ ධන යෝග පිළිබඳ සවිස්තරාත්මක විග්‍රහය",
+  "futurePredictions": "ඉදිරි වසර 1-3 තුළ උදාවන යහපත් කාලසීමාවන් සහ නව අවස්ථා පිළිබඳ විස්තරය",
+  "actionableGuidance": "ජීවිතය ජය ගැනීමට කළ යුතු ප්‍රායෝගික පුරුදු, සෙත් ශාන්ති සහ උපදෙස්",
+  "houses": {
+    "1": ["ග්‍රහයින්"], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [], "8": [], "9": [], "10": [], "11": [], "12": []
+  }
+}`;
+
             try {
-                const response = await fetch('/api/generate-horoscope', {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: promptText }] }],
+                        generationConfig: { responseMimeType: "application/json" }
+                    })
                 });
 
-                const data = await response.json();
-
-                if (data.error) {
-                    alert(data.error);
-                    return;
+                const rawResponse = await response.json();
+                let outputText = rawResponse.candidates[0].content.parts[0].text.trim();
+                
+                if (outputText.startsWith('```')) {
+                    outputText = outputText.replace(/^```json/, '').replace(/^```/, '').replace(/```$/, '').trim();
                 }
 
-                // Header Info
+                const data = JSON.parse(outputText);
+
                 document.getElementById('resName').innerText = payload.name;
                 document.getElementById('resDetails').innerText = `උපන් දිනය: ${payload.dob} | වේලාව: ${payload.time} | ස්ථානය: ${payload.district}, ${payload.country} (${payload.gender})`;
                 document.getElementById('resLagna').innerText = data.lagna || 'නොදනී';
                 document.getElementById('resNekatha').innerText = data.nekatha || 'නොදනී';
 
-                // Lucky Highlights
                 document.getElementById('resLuckyColor').innerText = data.luckyColor || '-';
                 document.getElementById('resLuckyNumber').innerText = data.luckyNumber || '-';
                 document.getElementById('resLuckyDay').innerText = data.luckyDay || '-';
 
-                // Affirmation
                 document.getElementById('resAffirmation').innerText = `"${data.positiveAffirmation || 'සැමවිටම ආත්ම විශ්වාසයෙන් සහ ධනාත්මක සිතුවිල්ලෙන් ජීවිතය ජය ගන්න.'}"`;
                 
-                // Dasha Details
-                document.getElementById('resDashaDetails').innerText = data.dashaDetails || 'දශා විස්තර සකස් කරමින් පවතී.';
-                document.getElementById('resDashaImpact').innerText = data.dashaImpact || 'දැනට ගතවන කාලය නිවැරදි සැලසුමකින් යුතුව කළමනාකරණය කරගන්න.';
+                document.getElementById('resDashaDetails').innerText = data.dashaDetails || 'දශා විස්තර සකස් වෙමින් පවතී.';
+                document.getElementById('resDashaImpact').innerText = data.dashaImpact || 'දැනට ගතවන කාලය නිවැරදිව කළමනාකරණය කරගන්න.';
 
-                // Other Readings
-                document.getElementById('resPersonality').innerText = data.personality || data.generalReading || 'විස්තර ලබා ගැනීමේ දෝෂයක්.';
-                document.getElementById('resCareer').innerText = data.careerFinance || 'ඔබේ හැකියාවන් නිවැරදිව කළමනාකරණය කර ගැනීමෙන් උසස් මට්ටමකට ළඟා විය හැක.';
-                document.getElementById('resFuture').innerText = data.futurePredictions || 'ඉදිරි කාලසීමාව නව අවස්ථා සහ ප්‍රගතියක් අත්කර ගැනීමට සුබදායක වේ.';
-                document.getElementById('resGuidance').innerText = data.actionableGuidance || 'දෛනිකව මනා සැලසුමකින් හා විනයකින් යුතුව වැඩ කිරීමෙන් සාර්ථකත්වය අත්වේ.';
+                document.getElementById('resPersonality').innerText = data.personality || 'විස්තර ලබා ගැනීමේ දෝෂයක්.';
+                document.getElementById('resCareer').innerText = data.careerFinance || 'ඔබේ හැකියාවන් කළමනාකරණය කරගන්න.';
+                document.getElementById('resFuture').innerText = data.futurePredictions || 'ඉදිරි කාලය සුබදායක වේ.';
+                document.getElementById('resGuidance').innerText = data.actionableGuidance || 'දෛනික සැලසුමකින් යුතුව වැඩ කරන්න.';
 
-                // Houses
                 for (let i = 1; i <= 12; i++) {
                     const houseEl = document.querySelector(`#house-${i} .planets`);
                     if (houseEl) {
@@ -357,25 +415,32 @@
 
             } catch (err) {
                 console.error(err);
-                alert('සම්බන්ධතාවයේ දෝෂයක් සිදුවිය.');
+                alert('කේන්දරය සකස් කිරීමේදී දෝෂයක් ඇති විය. නැවත උත්සාහ කරන්න.');
             } finally {
                 loader.classList.add('hidden');
             }
         });
 
-        // 1. Download as High-Resolution PNG Image
+        // Verification of Unlock Code
+        verifyCodeBtn.addEventListener('click', () => {
+            const enteredCode = unlockCodeInput.value.trim().toUpperCase();
+            if (VALID_CODES.includes(enteredCode)) {
+                alert('ගෙවීම තහවුරු විය! සම්පූර්ණ කේන්දර වාර්තාව Unlock විය.');
+                paywallOverlay.classList.add('hidden');
+                premiumContent.classList.remove('blur-content');
+                downloadControls.classList.remove('hidden');
+            } else {
+                alert('කරුණාකර වලංගු Unlock Code එකක් ඇතුළත් කරන්න. (Slip එක WhatsApp වෙත එවා Code එක ලබාගන්න)');
+            }
+        });
+
         downloadImageBtn.addEventListener('click', async () => {
             const element = document.getElementById('pdfContent');
             downloadImageBtn.innerText = 'රූපය සකසමින් පවතී...';
             downloadImageBtn.disabled = true;
 
             try {
-                const canvas = await html2canvas(element, {
-                    scale: 2,
-                    useCORS: true,
-                    backgroundColor: '#ffffff'
-                });
-                
+                const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
                 const link = document.createElement('a');
                 link.download = 'Handahana_Report.png';
                 link.href = canvas.toDataURL('image/png');
@@ -388,10 +453,7 @@
             }
         });
 
-        // 2. Direct Print / Save as PDF from Browser (100% Reliable)
-        printPdfBtn.addEventListener('click', () => {
-            window.print();
-        });
+        printPdfBtn.addEventListener('click', () => { window.print(); });
     </script>
 </body>
 </html>
